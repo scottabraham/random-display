@@ -10,9 +10,10 @@ const withRandomPosition = (ChildComponent) => {
         render(){
             const topPos = this.getRandom(0,window.innerHeight);
             const leftPos = this.getRandom(0,window.innerWidth);
+            const style = {...this.props.style, position:'absolute', top:topPos, left:leftPos}
 
             return(
-                <ChildComponent style={{ position:'absolute', top:topPos, left:leftPos}} {...this.props}/>
+                <ChildComponent {...this.props} style={style} />
             )
         }
     }
