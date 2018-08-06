@@ -8,11 +8,17 @@ const withClickBounce = (ChildComponent) => {
         }
 
         handleClick(){
-            {this.props.setClassName('animated infinite bounce delay-2s')}
+            if(this.props.isBouncing===true){
+                this.props.setIsBouncing(false)
+                this.props.setClassName('');
+
+            } else{
+                this.props.setClassName('animated infinite bounce delay-2s')
+                this.props.setIsBouncing(true);
+            }
         }
 
         render(){
-
             return(
                 <ChildComponent {...this.props} onClick={this.handleClick} />
             )

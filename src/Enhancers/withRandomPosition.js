@@ -9,7 +9,6 @@ const withRandomPosition = (ChildComponent) => {
                 topPos: null,
                 leftPos: null
             })
-
         }
 
         componentDidMount(){
@@ -26,7 +25,6 @@ const withRandomPosition = (ChildComponent) => {
         }
 
         render(){
-
             const style = {...this.props.style, position:'absolute', top:this.state.topPos, left:this.state.leftPos}
 
             return(

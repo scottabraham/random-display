@@ -1,19 +1,19 @@
 import React, {Component} from "react";
+import loader from '../images/ajax-loader.gif'
 
 const withRandomImage = (ChildComponent) => {
     return class extends Component{
 
         constructor(props){
             super(props)
-            this.state=({src:''})
+            this.state=({src:loader})
         }
 
         componentDidMount(){
-            fetch('https://source.unsplash.com/random/200x200')
+            fetch('https://picsum.photos/200?random')
                 .then(function(response) {
                     return response.url
                 }).then((url) => this.setState({src:url}))
-
         }
 
          render(){

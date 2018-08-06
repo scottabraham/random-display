@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 
-const withState = (stateValues) => (ChildComponent) => {
+const withHandler = (handlerValues) => (ChildComponent) => {
     return class extends Component{
 
         componentDidMount(){
             this.setState({
-                [stateValues.key]:stateValues.value
-            }), this.value = stateValues.value
+                [handlerValues.key]:handlerValues.value
+            }), this.value = handlerValues.value;
         }
 
         updateStateValue = (key) => (value) =>{
@@ -17,7 +17,7 @@ const withState = (stateValues) => (ChildComponent) => {
         }
 
         render(){
-            const dynamicProps = {[stateValues.key]:this.value, [stateValues.fn]: this.updateStateValue(stateValues.key) };
+            const dynamicProps = {[handlerValues.key]:this.value, [handlerValues.fn]: this.updateStateValue(handlerValues.key) };
 
             return(
                 <ChildComponent {...this.props} {...dynamicProps} />
@@ -26,4 +26,4 @@ const withState = (stateValues) => (ChildComponent) => {
     }
 }
 
-export default withState;
+export default withHandler
