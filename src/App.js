@@ -3,9 +3,10 @@ import './app.css'
 import ImageComponent from './Components/image'
 import Oscar from './images/HeyOrca_Logo.png'
 import withRoundComponent from './Enhancers/withRoundComponent'
+import withRandomPosition from './Enhancers/withRandomPosition'
 
 // We're now composing our image from the basic component and a HOC
-const ComposedImage = withRoundComponent(ImageComponent)
+const ComposedImage = withRandomPosition(withRoundComponent(ImageComponent))
 
 class App extends Component{
 
