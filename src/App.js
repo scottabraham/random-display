@@ -1,14 +1,18 @@
-import React, {Component, Fragment} from 'react'
-
-import DogComponent from './Components/dog'
+import React, {Component} from 'react'
+import './app.css'
+import ImageComponent from './Components/image'
 import withRandomPosition from './Enhancers/withRandomPosition'
-import withBouncing from './Enhancers/withBouncing'
-import withEditable from './Enhancers/withEditable'
+import withState from './Enhancers/withState'
+import withFadeIn from './Enhancers/withFadeIn'
+import withRandomImage from './Enhancers/withRandomImage'
+import withRoundComponent from './Enhancers/withRoundComponent'
+import withClickBounce from './Enhancers/withClickBounce'
+import dogimage from './images/dog.png'
+const classNameState = withState({key:'className', value:'', fn:'setClassName'})
+const isBouncingState = withState({key:'isBouncing', value:false, fn:'setIsBouncing'})
 
-const TextComponent = (props) => <h2 className={props.className} style={props.style}>{props.text}</h2>
+const ComposedImage = isBouncingState(classNameState(withClickBounce(withRoundComponent(withRandomImage(withFadeIn(withRandomPosition(ImageComponent)))))))
 
-const ComposedDog = withBouncing(withRandomPosition((DogComponent)))
-const ComposedText = withEditable(withRandomPosition((TextComponent)))
 
 
 class App extends Component{
@@ -19,20 +23,32 @@ class App extends Component{
             components: []
         })
         this.handleOnClick = this.handleOnClick.bind(this);
+        this.clearState = this.clearState.bind(this);
+
+    }
+
+    clearState(){
+        this.setState({
+            components: []
+        })
     }
 
     handleOnClick(){
-        const Dog = <ComposedDog/>;
+        const Image = <ComposedImage src={dogimage} style={{border:'3px solid white'}} />;
         this.setState({
-            components: this.state.components.concat(Dog)
+            components: this.state.components.concat(Image)
         })
+
     }
 
     render (){
         return(
-            <div>
-                <input type={'button'} onClick={this.handleOnClick} value={'Click'} />
-                <span>{this.state.components.length}</span>
+            <div className={'app'}>
+                <input type={'button'} onClick={this.handleOnClick} value={'Click'} className={'btn'} />
+                <div style={{width:'10px', display:'inline-block'}}/>
+                <input type={'button'} onClick={this.clearState} value={'Clear'} className={'btn'} />
+                <div style={{width:'10px', display:'inline-block'}}/>
+                <span style={{fontSize: '20pt',color: 'yellow'}}>{this.state.components.length}</span>
                 {this.state.components.map((Component, index) => <div key={index}>{Component}</div>)}
             </div>
         )

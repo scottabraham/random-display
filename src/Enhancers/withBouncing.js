@@ -1,7 +1,7 @@
 import React from 'react'
 const withBouncing = (ChildComponent) => {
     return function(props) {
-        return <ChildComponent className={'animated infinite bounce delay-2s'} {...props}/>
+        return <ChildComponent {...props} className={'animated infinite bounce delay-2s'} />
     }
 }
 
