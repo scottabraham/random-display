@@ -2,8 +2,13 @@ import React, {Component} from 'react'
 import './app.css'
 import ImageComponent from './Components/image'
 import Oscar from './images/HeyOrca_Logo.png'
+import withRoundComponent from './Enhancers/withRoundComponent'
+
+// We're now composing our image from the basic component and a HOC
+const ComposedImage = withRoundComponent(ImageComponent)
 
 class App extends Component{
+
 
     constructor(props){
         super(props);
@@ -22,8 +27,8 @@ class App extends Component{
 
     handleOnClick(){
 
-        // Create a new Image Component and add it to State
-        const Image = <ImageComponent src={Oscar} />;
+        // Create a new Composed Image and add it to State
+        const Image = <ComposedImage src={Oscar}/>
         this.setState({
             components: this.state.components.concat(Image)
         })
