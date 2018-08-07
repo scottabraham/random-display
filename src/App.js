@@ -5,11 +5,14 @@ import Oscar from './images/HeyOrca_Logo.png'
 import withRoundComponent from './Enhancers/withRoundComponent'
 import withRandomPosition from './Enhancers/withRandomPosition'
 import withRandomImage from './Enhancers/withRandomImage'
-import withBouncing from './Enhancers/withBouncing'
+import withClickBounce from './Enhancers/withClickBounce'
+import withState from './Enhancers/withState'
 
+const classNameState = withState({key: 'className', value: '', fn: 'setClassName'})
+const isBouncingState = withState({key: 'isBouncing', value: false, fn: 'setIsBouncing'})
 
 // We're now composing our image from the basic component and a HOC
-const ComposedImage = withBouncing(withRandomImage(withRandomPosition(withRoundComponent(ImageComponent))))
+const ComposedImage = classNameState(isBouncingState(withClickBounce(withRandomImage(withRandomPosition(withRoundComponent(ImageComponent))))))
 
 class App extends Component{
 
