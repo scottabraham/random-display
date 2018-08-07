@@ -5,12 +5,11 @@ import Oscar from './images/HeyOrca_Logo.png'
 import withRoundComponent from './Enhancers/withRoundComponent'
 import withRandomPosition from './Enhancers/withRandomPosition'
 import withRandomImage from './Enhancers/withRandomImage'
-import withState from './Enhancers/withState'
-import withCreatedTimestamp from './Enhancers/withCreatedTimestamp'
+import withBouncing from './Enhancers/withBouncing'
 
-const withCreatedTimestampState = withState({key: 'createdTimestamp', value: new Date(), fn: 'setCreatedTimestamp' });
+
 // We're now composing our image from the basic component and a HOC
-const ComposedImage = withCreatedTimestampState(withCreatedTimestamp(withRandomImage(withRandomPosition(withRoundComponent(ImageComponent)))))
+const ComposedImage = withBouncing(withRandomImage(withRandomPosition(withRoundComponent(ImageComponent))))
 
 class App extends Component{
 
