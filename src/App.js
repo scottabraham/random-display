@@ -5,9 +5,12 @@ import Oscar from './images/HeyOrca_Logo.png'
 import withRoundComponent from './Enhancers/withRoundComponent'
 import withRandomPosition from './Enhancers/withRandomPosition'
 import withRandomImage from './Enhancers/withRandomImage'
+import withState from './Enhancers/withState'
+import withCreatedTimestamp from './Enhancers/withCreatedTimestamp'
 
+const withCreatedTimestampState = withState({key: 'createdTimestamp', value: new Date(), fn: 'setCreatedTimestamp' });
 // We're now composing our image from the basic component and a HOC
-const ComposedImage = withRandomImage(withRandomPosition(withRoundComponent(ImageComponent)))
+const ComposedImage = withCreatedTimestampState(withCreatedTimestamp(withRandomImage(withRandomPosition(withRoundComponent(ImageComponent)))))
 
 class App extends Component{
 
@@ -30,7 +33,7 @@ class App extends Component{
     handleOnClick(){
 
         // Create a new Composed Image and add it to State
-        const Image = <ComposedImage src={Oscar}/>
+        const Image = <ComposedImage src={Oscar} style={{border: '2px solid white'}}/>
         this.setState({
             components: this.state.components.concat(Image)
         })
