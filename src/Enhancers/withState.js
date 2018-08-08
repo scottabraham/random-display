@@ -1,5 +1,17 @@
 import React, {Component} from 'react'
 
+/*
+    stateValues:
+        key: Name of the state item
+        value: Initial value
+        fn: The name of the function returned to update state
+
+    returns:
+    dynamicProps:
+        key: value
+        fn: (update function)
+ */
+
 const withState = (stateValues) => (ChildComponent) => {
     return class extends Component{
 
