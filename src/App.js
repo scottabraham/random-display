@@ -7,16 +7,26 @@ import withRandomPosition from './Enhancers/withRandomPosition'
 import withRandomImage from './Enhancers/withRandomImage'
 import withClickBounce from './Enhancers/withClickBounce'
 import withState from './Enhancers/withState'
+import { compose } from 'recompose'
+
 
 const classNameState = withState({key: 'className', value: '', fn: 'setClassName'})
 const isBouncingState = withState({key: 'isBouncing', value: false, fn: 'setIsBouncing'})
 
+
+const enhance = compose(
+  classNameState,
+  isBouncingState,
+  withClickBounce,
+  withRandomImage,
+  withRandomPosition,
+  withRoundComponent
+)
+
 // We're now composing our image from the basic component and a HOC
-const ComposedImage = classNameState(isBouncingState(withClickBounce(withRandomImage(withRandomPosition(withRoundComponent(ImageComponent))))))
+const ComposedImage = enhance(ImageComponent)
 
 class App extends Component{
-
-
     constructor(props){
         super(props);
         this.state=({
