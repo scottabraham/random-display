@@ -7,16 +7,34 @@ import withRandomPosition from './Enhancers/withRandomPosition'
 import withRandomImage from './Enhancers/withRandomImage'
 import withClickBounce from './Enhancers/withClickBounce'
 import withState from './Enhancers/withState'
-import { compose } from 'recompose'
-
+import { compose, mapProps } from 'recompose'
 
 const classNameState = withState({key: 'className', value: '', fn: 'setClassName'})
-const isBouncingState = withState({key: 'isBouncing', value: false, fn: 'setIsBouncing'})
+const isAnimatingState = withState({key: 'isAnimating', value: false, fn: 'setIsAnimating'})
 
+/*
+  I changed the name of my isBouncingState and setIsBouncing state
+  so that I could utilise mapProps to transform the props that
+  are in my app into the prop that the HOC needs to work.
+
+  mapBouncingProps takes the current props and transforms them.
+
+*/
+const mapBouncingProps = mapProps(props => {
+    const {isAnimating, setIsAnimating, ...newProps} = props; // newProps won't contain isAnimating, setIsAnimating
+    return {
+      ...newProps,
+      isBouncing: isAnimating,
+      setIsBouncing: setIsAnimating,
+      randomProp: 'Bob Smith'
+    }
+  }
+)
 
 const enhance = compose(
   classNameState,
-  isBouncingState,
+  isAnimatingState,
+  mapBouncingProps,
   withClickBounce,
   withRandomImage,
   withRandomPosition,
